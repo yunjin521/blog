@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>排版对比测试</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Serif SC", "STSong", Georgia, "Microsoft YaHei", sans-serif; background: #faf7f0; color: #4a3b2f; line-height: 1.8; font-size: 16px; padding: 1.5rem; }
+
+  .test-section { margin-bottom: 3rem; }
+  .test-section h2 { text-align: center; color: #8c7b6b; font-size: 0.9rem; margin-bottom: 1rem; padding: 0.5rem; background: #ede4d6; border-radius: 6px; }
+
+  .test-wide { max-width: 840px; margin: 0 auto; padding: 0 2.5rem; border: 1px dashed #c4a882; background: rgba(255,255,255,0.5); }
+  .test-narrow { max-width: 700px; margin: 0 auto; padding: 0 2rem; border: 1px dashed #c4a882; background: rgba(255,255,255,0.5); }
+
+  .site-header { padding: 1rem 0; margin-bottom: 1rem; border-bottom: 1px solid #e8e0d4; }
+  .header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 1.1rem; font-weight: 700; color: #5b4a38; }
+  .nav-links { display: flex; gap: 1rem; font-size: 0.85rem; }
+  .nav-links a { color: #8c7b6b; text-decoration: none; }
+
+  .hero { text-align: center; padding: 2rem 0; }
+  .hero-title { font-size: 1.8rem; font-weight: 700; color: #4a3b2f; }
+
+  .post-card { background: #fff; border: 1px solid #ede4d6; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+  .post-date { font-size: 0.78rem; color: #b0a090; }
+  .post-title { font-size: 1rem; font-weight: 600; margin: 0.2rem 0; color: #4a3b2f; }
+
+  .guide { max-width: 600px; margin: 2rem auto; text-align: center; font-size: 0.85rem; color: #8c7b6b; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<div class="test-section">
+  <h2>A组 — 840px 宽度 | 虚线框 = 页面边界</h2>
+  <div class="test-wide">
+    <header class="site-header">
+      <div class="header-inner"><span class="logo">云朵小记</span><nav class="nav-links"><a href="#">首页</a><a href="#">关于</a><a href="#">分类</a><a href="#">友链</a><a href="#">写文章</a></nav></div>
+    </header>
+    <div class="hero"><h1 class="hero-title">写一些安静的文字</h1></div>
+    <div class="post-card"><div class="post-date">2026年5月20日</div><div class="post-title">看星星</div></div>
+    <div class="post-card"><div class="post-date">2026年5月19日</div><div class="post-title">你好，世界</div></div>
+  </div>
+</div>
+
+<div class="test-section">
+  <h2>B组 — 700px 宽度（和写文章编辑器相同）| 虚线框 = 页面边界</h2>
+  <div class="test-narrow">
+    <header class="site-header">
+      <div class="header-inner"><span class="logo">云朵小记</span><nav class="nav-links"><a href="#">首页</a><a href="#">关于</a><a href="#">分类</a><a href="#">友链</a><a href="#">写文章</a></nav></div>
+    </header>
+    <div class="hero"><h1 class="hero-title">写一些安静的文字</h1></div>
+    <div class="post-card"><div class="post-date">2026年5月20日</div><div class="post-title">看星星</div></div>
+    <div class="post-card"><div class="post-date">2026年5月19日</div><div class="post-title">你好，世界</div></div>
+  </div>
+</div>
+
+<div class="guide">
+  <p><strong>虚线框 = 页面内容区域的左右边界</strong></p>
+  <p>虚线框到浏览器窗口边缘 = 留白</p>
+  <p>对比 A组（840px）和 B组（700px），哪个的左右留白更舒服？</p>
+</div>
+
+</body>
+</html>
