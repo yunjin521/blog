@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>写文章 — 云朵小记</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .editor-wrap { max-width: 800px; margin: 2rem auto; }
+  .editor-wrap h1 { margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-weight: 600; margin-bottom: 0.3rem; color: #5b4a38; font-size: 0.9rem; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 0.6rem 0.8rem; border: 1px solid #e0d6c8; border-radius: 8px;
+    font-size: 0.95rem; font-family: inherit; background: #fdfcf9; color: #4a3b2f;
+  }
+  .form-group textarea { min-height: 400px; line-height: 1.8; }
+  .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #c4a882; }
+  .form-row { display: flex; gap: 1rem; }
+  .form-row .form-group { flex: 1; }
+  .btn-publish { background: #8ba883; color: #fff; border: none; padding: 0.8rem 2.5rem; font-size: 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; }
+  .btn-publish:hover { background: #6b8a5e; }
+  .msg { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: 8px; display: none; font-size: 0.9rem; }
+  .msg.success { display: block; background: #e8f0e0; color: #4a6741; }
+  .msg.error { display: block; background: #fce4d0; color: #a0523b; }
+  .content-help { font-size: 0.8rem; color: #968a7a; margin-top: 0.3rem; }
+  .content-help code { background: #f5f0e8; padding: 1px 5px; border-radius: 3px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="site">
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">云朵小记</a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html">首页</a>
+      <a href="about.html">关于</a>
+      <a href="categories.html">分类</a>
+      <a href="links.html">友链</a>
+    </nav>
+  </div>
+</header>
+
+<main class="editor-wrap">
+  <h1>写新文章</h1>
+
+  <div class="form-row">
+    <div class="form-group"><label>标题</label><input type="text" id="title" placeholder="文章标题"></div>
+    <div class="form-group">
+      <label>标签</label>
+      <select id="tag">
+        <option value="生活随笔">生活随笔</option><option value="读书笔记">读书笔记</option>
+        <option value="探店记录">探店记录</option><option value="创作分享">创作分享</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group"><label>摘要（显示在首页卡片上）</label><input type="text" id="excerpt" placeholder="一两句话概括这篇文章"></div>
+
+  <div class="form-group">
+    <label>正文</label>
+    <textarea id="content" placeholder="在这里写文章内容...
+
+空行分隔段落
+**粗体** 强调文字
+- 列表项
+&lt;img src=&quot;图片地址&quot;&gt; 插入图片"></textarea>
+    <div class="content-help">空行分隔段落 | <code>**粗体**</code> | <code>- 列表项</code></div>
+  </div>
+
+  <button class="btn-publish" onclick="publish()">发布文章</button>
+  <div class="msg" id="msg"></div>
+
+  <details style="margin-top:2rem">
+    <summary style="cursor:pointer;color:#8c7b6b;font-size:0.9rem">首次使用：设置 GitHub Token（只需一次）</summary>
+    <div style="margin-top:1rem;padding:1rem;background:#fdfcf9;border-radius:8px;border:1px solid #e8e0d4;font-size:0.85rem">
+      <ol style="margin-left:1.2rem;line-height:2">
+        <li>打开 <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+        <li>Note 填 <code>blog-editor</code>，Expiration 选 <strong>No expiration</strong></li>
+        <li>勾选 <strong>repo</strong> 一整行</li>
+        <li>点 Generate token，复制生成的 token（<code>ghp_</code> 开头）</li>
+        <li>粘贴到下面，点保存</li>
+      </ol>
+      <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+        <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxx" style="flex:1;padding:0.5rem;border:1px solid #e0d6c8;border-radius:6px;font-size:0.85rem">
+        <button onclick="saveToken()" style="background:#c4a882;color:#fff;border:none;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;white-space:nowrap">保存</button>
+      </div>
+      <p id="token-status" style="margin-top:0.5rem;font-size:0.8rem;color:#8ba883"></p>
+    </div>
+  </details>
+</main>
+
+<footer class="site-footer"><p>2026 云朵小记 · 安静地写字</p></footer>
+
+</div>
+
+<script>
+function msg(text, type) { var el = document.getElementById('msg'); el.textContent = text; el.className = 'msg ' + type; }
+
+function saveToken() {
+  var t = document.getElementById('token-input').value.trim();
+  if (!t) return;
+  localStorage.setItem('gh_token', t);
+  document.getElementById('token-status').textContent = 'Token 已保存！';
+  document.getElementById('token-input').value = '';
+}
+
+(function() { if (localStorage.getItem('gh_token')) document.getElementById('token-status').textContent = '已有 Token（已设置）'; })();
+
+async function publish() {
+  var token = localStorage.getItem('gh_token');
+  if (!token) { msg('请先在下方设置 GitHub Token', 'error'); return; }
+
+  var title = document.getElementById('title').value.trim();
+  var content = document.getElementById('content').value.trim();
+  var tag = document.getElementById('tag').value;
+  var excerpt = document.getElementById('excerpt').value.trim();
+  if (!title || !content) { msg('标题和正文不能为空', 'error'); return; }
+
+  var tagCM = { '生活随笔': 'tag-life', '读书笔记': 'tag-reading', '探店记录': 'tag-place', '创作分享': 'tag-creative' };
+  var tagclass = tagCM[tag] || 'tag-life';
+  var slug = title.replace(/[^\w一-鿿]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+  var now = new Date();
+  var m = String(now.getMonth()+1).padStart(2,'0'); var d = String(now.getDate()).padStart(2,'0');
+  var dateStr = now.getFullYear() + '年' + m + '月' + d + '日';
+  var dateISO = now.getFullYear() + '-' + m + '-' + d;
+  var filename = dateISO + '-' + slug + '.html';
+
+  var articleHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>' + title + ' — 云朵小记</title>\n<link rel="stylesheet" href="../style.css">\n</head>\n<body>\n<div class="site">\n\n<header class="site-header">\n  <div class="header-inner">\n    <a href="../index.html" class="logo">云朵小记</a>\n    <nav class="nav-links" aria-label="主导航">\n      <a href="../index.html">首页</a>\n      <a href="../about.html">关于</a>\n      <a href="../categories.html">分类</a>\n      <a href="../links.html">友链</a>\n    </nav>\n  </div>\n</header>\n\n<main class="main-content">\n  <article class="article-content">\n    <div class="article-meta">\n      <time class="article-date">' + dateStr + '</time>\n    </div>\n    <h1>' + title + '</h1>\n\n' + content + '\n\n    <div class="article-tags">\n      <span class="post-tag ' + tagclass + '">' + tag + '</span>\n    </div>\n    <a href="../index.html" class="back-link">&larr; 返回首页</a>\n  </article>\n</main>\n\n<footer class="site-footer">\n  <p>2026 云朵小记 · 安静地写字</p>\n</footer>\n\n</div>\n</body>\n</html>';
+
+  var base64Content = btoa(unescape(encodeURIComponent(articleHTML)));
+  msg('正在发布...', 'success');
+
+  try {
+    var resp = await fetch('https://api.github.com/repos/yunjin521/blog/contents/posts/' + filename, {
+      method: 'PUT', headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: '发布文章: ' + title, content: base64Content })
+    });
+    if (resp.ok) {
+      msg('发布成功！1 分钟后在博客首页可见', 'success');
+      await updateIndex(token, title, dateStr, excerpt, tag, tagclass, filename);
+    } else {
+      var err = await resp.json();
+      msg('发布失败: ' + (err.message || '未知错误'), 'error');
+    }
+  } catch(e) { msg('网络错误: ' + e.message, 'error'); }
+}
+
+async function updateIndex(token, title, dateStr, excerpt, tag, tagclass, filename) {
+  try {
+    var resp = await fetch('https://api.github.com/repos/yunjin521/blog/contents/index.html', { headers: { 'Authorization': 'token ' + token } });
+    var data = await resp.json();
+    var cur = decodeURIComponent(escape(atob(data.content)));
+    var sha = data.sha;
+    var card = '\n    <article class="post-card">\n      <time class="post-date">' + dateStr + '</time>\n      <h2 class="post-title"><a href="posts/' + filename + '">' + title + '</a></h2>\n      <p class="post-excerpt">' + excerpt + '</p>\n      <span class="post-tag ' + tagclass + '">' + tag + '</span>\n    </article>';
+    var after = '<section class="post-list">';
+    var nc = cur.replace(after, after + card);
+    var nb = btoa(unescape(encodeURIComponent(nc)));
+    await fetch('https://api.github.com/repos/yunjin521/blog/contents/index.html', {
+      method: 'PUT', headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: '更新首页: ' + title, content: nb, sha: sha })
+    });
+  } catch(e) { console.log('首页自动更新失败: ' + e.message); }
+}
+</script>
+</body>
+</html>
