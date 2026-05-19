@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>云朵小记 — 首页</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">云朵小记</a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="index.html" class="nav-link active">首页</a>
+        <a href="about.html" class="nav-link">关于</a>
+        <a href="categories.html" class="nav-link">分类</a>
+        <a href="links.html" class="nav-link">友链</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">写一些安静的文字</h1>
+      <p class="hero-subtitle">记录生活里的光 · 影 · 绿意</p>
+      <span class="hero-tag">自然 · 文字 · 生活</span>
+    </section>
+
+    <section class="post-list">
+      <article class="post-card">
+        <div class="post-card-body">
+          <h2 class="post-title">
+            <a href="posts/hello-world.html">你好，世界</a>
+          </h2>
+          <time class="post-date" datetime="2026-05-19">2026年5月19日</time>
+          <p class="post-excerpt">这是我的第一篇博客文章。从这里开始，记录生活中的每一个温暖瞬间。</p>
+        </div>
+        <div class="post-card-footer">
+          <span class="post-tag">生活随笔</span>
+        </div>
+      </article>
+
+      <article class="post-card">
+        <div class="post-card-body">
+          <h2 class="post-title">
+            <span class="post-title-placeholder">下一篇会是什么？</span>
+          </h2>
+          <p class="post-excerpt">想写新文章吗？在 <code>site/posts/</code> 目录下新建一个 <code>.html</code> 文件，然后在首页的文章列表里加上对应的卡片就好啦。标题、日期、标签都可以自由发挥。</p>
+        </div>
+        <div class="post-card-footer">
+          <span class="post-tag">教程</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>2026 云朵小记 · 安静地写字</p>
+  </footer>
+</body>
+</html>

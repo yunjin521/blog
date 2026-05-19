@@ -1,0 +1,87 @@
+<!--
+  云朵小记 — 文章模板
+  使用方法：
+  1. 复制此文件并重命名为 your-post-slug.html
+  2. 修改 <title> 中的标题
+  3. 修改 .article-date 中的日期
+  4. 修改 .article-content 中所有占位内容为你的正文
+  5. 修改 .article-tags 中的标签和对应的 class（可选：tag-life / tag-reading / tag-place / tag-creative）
+  6. 删除 <header> 行、<footer> 行或 <main> 行之外的任何注释
+  7. 在 site/index.html 的文章列表中添加此文章的链接
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>云朵小记 — 文章标题</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html">云朵小记</a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="../index.html" class="nav-link">首页</a>
+        <a href="../about.html" class="nav-link">关于</a>
+        <a href="../categories.html" class="nav-link">分类</a>
+        <a href="../links.html" class="nav-link">友链</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="page-content">
+      <div class="article-meta">
+        <time class="article-date" datetime="YYYY-MM-DD">YYYY年M月D日</time>
+      </div>
+
+      <div class="article-content">
+        <h1>文章标题</h1>
+
+        <p>这是文章的第一个段落。把你想说的话写在这里。</p>
+
+        <p>这是第二个段落。一段写一个主题，读起来会更舒服。太长的段落会让人读着累，可以适当换行分段。</p>
+
+        <h2>二级标题</h2>
+
+        <p>二级标题可以用来划分文章的不同部分。你可以在这里展开一个新的话题。</p>
+
+        <p>多写几个段落，让文章充实起来。博客是自己耕耘的园地，不用太在意字数，把想说的说清楚就好。</p>
+
+        <h3>三级标题</h3>
+
+        <p>三级标题适合更细分的话题。写文章就像搭积木，一层一层把内容组织起来。</p>
+
+        <blockquote>
+          <p>这是一段引用。把喜欢的句子、书本里的段落或者别人的话放在这里。</p>
+        </blockquote>
+
+        <p>引用之后可以写上你自己的看法，顺着或者反驳都行，重要的是你的想法。</p>
+
+        <h2>再一个二级标题</h2>
+
+        <p>如果文章内容比较多，可以多分几个大块。每个大块之间用一个二级标题隔开。</p>
+
+        <ul>
+          <li>列表项一：适合列举要点</li>
+          <li>列表项二：清晰明了</li>
+          <li>列表项三：读起来轻松</li>
+        </ul>
+
+        <p>文章最后可以有个小结段落，自然地收束全文。</p>
+      </div>
+
+      <div class="article-tags">
+        <a href="../categories.html" class="post-tag tag-life">示例标签</a>
+      </div>
+
+      <a href="../index.html" class="back-link">← 返回首页</a>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>2026 云朵小记 · 安静地写字</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,71 @@
+/* === 暖绿素白 - 博客主题 === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", Georgia, "Microsoft YaHei", sans-serif;
+  background: #faf7f0; color: #4a3b2f; line-height: 1.8; font-size: 16px;
+}
+a { color: #9b7a5e; text-decoration: none; }
+a:hover { color: #7a5e3e; }
+.site { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+.site-header { padding: 1.5rem 0; margin-bottom: 2rem; border-bottom: 1px solid #e8e0d4; }
+.header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+.logo { font-size: 1.2rem; font-weight: 700; color: #5b4a38; }
+.nav-links { display: flex; gap: 1.25rem; font-size: 0.9rem; }
+.nav-links a { color: #8c7b6b; }
+.nav-links a.active { color: #5b4a38; font-weight: 600; }
+.nav-links a:hover { color: #5b4a38; }
+.hero { text-align: center; padding: 3rem 0; }
+.hero-title { font-size: 2rem; font-weight: 700; color: #4a3b2f; margin-bottom: 0.5rem; }
+.hero-subtitle { font-size: 1rem; color: #a0907a; }
+.hero-tag { display: inline-block; margin-top: 1rem; padding: 4px 16px; border-radius: 20px; font-size: 0.8rem; background: #f0e4d4; color: #9b7a5e; }
+.post-list { margin-top: 1rem; }
+.post-card { background: #fff; border: 1px solid #ede4d6; border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 0.85rem; }
+.post-date { font-size: 0.78rem; color: #b0a090; }
+.post-title { font-size: 1.1rem; font-weight: 600; margin: 0.2rem 0 0.4rem; }
+.post-title a { color: #4a3b2f; }
+.post-title a:hover { color: #9b7a5e; }
+.post-excerpt { font-size: 0.88rem; color: #8c7b6b; line-height: 1.7; }
+.post-tag { display: inline-block; font-size: 0.72rem; padding: 2px 10px; border-radius: 12px; margin-top: 0.35rem; }
+.tag-life { background: #e8f0e0; color: #6b8a5e; }
+.tag-reading { background: #f0e8d8; color: #9b7a5e; }
+.tag-place { background: #ece0d4; color: #b08060; }
+.tag-creative { background: #e8e8f0; color: #7a7a9e; }
+.article-content { margin: 2rem 0; }
+.article-content h1 { font-size: 1.6rem; margin-bottom: 1rem; color: #4a3b2f; }
+.article-content h2 { font-size: 1.2rem; margin: 2rem 0 0.5rem; color: #5b4a38; }
+.article-content h3 { font-size: 1rem; margin: 1.5rem 0 0.5rem; color: #5b4a38; }
+.article-content p { margin-bottom: 1rem; color: #5b4a38; line-height: 2; }
+.article-content img { max-width: 100%; border-radius: 8px; margin: 1rem auto; display: block; }
+.article-content blockquote { border-left: 3px solid #c4a882; padding: 0.5rem 1rem; margin: 1rem 0; background: #fdfaf5; border-radius: 0 6px 6px 0; color: #7a6d5e; }
+.article-content pre { background: #f5f0e8; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.6; }
+.article-content code { font-family: "Fira Code", "Consolas", monospace; font-size: 0.85em; }
+.article-content ul, .article-content ol { margin: 0.5rem 0 1rem 1.5rem; }
+.article-meta { margin-bottom: 1.5rem; }
+.article-date { font-size: 0.85rem; color: #b0a090; }
+.article-tags { margin-top: 2rem; }
+.back-link { display: inline-block; margin-top: 2rem; font-size: 0.85rem; color: #9b7a5e; }
+.page-content { margin: 2rem 0; }
+.page-content h1 { font-size: 1.5rem; margin-bottom: 1rem; color: #4a3b2f; }
+.page-title { font-size: 1.5rem; margin-bottom: 1rem; color: #4a3b2f; }
+.page-content h3 { font-size: 1rem; margin: 1.5rem 0 0.3rem; color: #5b4a38; }
+.page-content p { color: #5b4a38; line-height: 2; margin-bottom: 0.75rem; }
+.page-intro { color: #8c7b6b; margin-bottom: 1.5rem; }
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.category-card { display: block; background: #fff; border: 1px solid #ede4d6; border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; }
+.category-card:hover { border-color: #c4a882; }
+.category-name { font-size: 1rem; color: #5b4a38; margin-bottom: 0.2rem; }
+.category-desc { font-size: 0.85rem; color: #8c7b6b; margin: 0; }
+@media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }
+.link-grid { display: grid; gap: 0.75rem; }
+.link-card { display: block; background: #fff; border: 1px solid #ede4d6; border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; }
+.link-card:hover { border-color: #c4a882; }
+.link-name { font-size: 1rem; color: #5b4a38; margin-bottom: 0.2rem; }
+.link-desc { font-size: 0.85rem; color: #8c7b6b; margin: 0; }
+.link-hint { font-size: 0.85rem; color: #a0907a; margin-top: 1.5rem; text-align: center; }
+.site-footer { text-align: center; padding: 2rem 0; margin-top: 4rem; border-top: 1px solid #e8e0d4; font-size: 0.8rem; color: #b0a090; }
+@media (max-width: 640px) {
+  .site { padding: 0 1rem; }
+  .hero { padding: 2rem 0; }
+  .hero-title { font-size: 1.5rem; }
+  .header-inner { flex-direction: column; gap: 0.5rem; }
+}
