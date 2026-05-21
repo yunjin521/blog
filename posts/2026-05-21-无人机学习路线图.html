@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无人机学习路线图 — 云朵小记</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .article-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  .article-content table th { background: #fdfaf5; border-bottom: 2px solid #e8e0d4; padding: 0.5rem; text-align: left; }
+  .article-content table td { padding: 0.5rem; border-bottom: 1px solid #ede4d6; }
+  .checklist { list-style: none; padding-left: 0; }
+  .checklist li { padding: 0.2rem 0; }
+  .checklist li::before { content: "☐ "; color: #c4a882; }
+</style>
+</head>
+<body>
+<div class="site">
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">云朵小记</a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../about.html">关于</a>
+      <a href="../categories.html">分类</a>
+      <a href="../links.html">友链</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-content">
+  <article class="article-content">
+    <div class="article-meta">
+      <time class="article-date">2026年5月21日</time>
+    </div>
+    <h1>无人机学习路线图</h1>
+
+    <blockquote>目标：从画飞控板开始，掌握完整无人机技术栈（自主飞行 + ROS + 就业/竞赛级别）<br>
+    起点：有Cinebot25 V2 + Vapor-X5两架飞机，会手动飞行，会Betaflight基础调参，有普中51单片机（闲置）<br>
+    偏好：跟开源项目复刻，边做边学<br>
+    预算：500-2000元 | 时间：每周5-10小时<br>
+    总周期：8-14个月 | 总预算：~1200元</blockquote>
+
+    <h2>核心原则</h2>
+    <p><strong>先飞起来 → 拆解理解 → 复刻改进 → 自主设计</strong></p>
+    <p>不能上来就画飞控板。飞控板是整个无人机系统的中枢，如果没理解它在真实系统中的角色，画出来的大概率是通电就烧的砖。你已经有飞行经验，这比纯理论学生强太多——你需要的是把"知道怎么飞"转化为"知道它为什么能飞"。</p>
+
+    <h2>阶段零：电子基础 + 51单片机唤醒（3-4周，~100元）</h2>
+    <h3>电子理论（1周）</h3>
+    <p>用你手头两架飞机的飞控板当实物教材：电阻分压、上拉/下拉、电容去耦/滤波、MOSFET作为开关管、LDO vs DC-DC（BEC降压）、看懂飞控供电链：电池 → BEC → 5V → 3.3V LDO → MCU/IMU</p>
+
+    <h3>51单片机（2周）</h3>
+    <p>按顺序跑通：GPIO输出（点灯）→ GPIO输入+外部中断（按键检测）→ 定时器/计数器（理解中断周期 = 飞控PID循环的基础）→ UART串口通信（printf到电脑 = 飞控debug手段）→ I2C通信（读传感器）→ ADC采样。</p>
+    <p><strong>不需要学到很精。</strong>重点是理解：寄存器怎么操作、中断怎么响应、I2C/SPI/UART怎么工作——这三点是飞控固件的骨架。</p>
+
+    <h3>焊接练习（同步）</h3>
+    <p>买焊接练习板（~30元），先焊直插元件再焊0805贴片。工具：936焊台（~50元）+ 万用表DT9205（~20元）+ 焊锡丝 + 助焊剂。</p>
+
+    <h2>阶段一：解剖现有飞控 + 过渡STM32（4-6周，~200元）</h2>
+    <h3>解剖飞控（2周）</h3>
+    <p>拆开Cinebot25或Vapor-X5找飞控板：对照Betaflight开源原理图识别板上芯片，用万用表测量供电链，验证理解。</p>
+
+    <h3>STM32入门（4周）</h3>
+    <ol>
+      <li>买STM32F405核心板（~50元）+ ST-Link V2调试器（~30元）</li>
+      <li>跑通外设：GPIO → 中断 → 定时器PWM → SPI读IMU → UART</li>
+      <li>买ICM-42688或MPU6050模块（~15元）</li>
+      <li>用STM32读IMU数据，从串口打印姿态角——飞控的第一步</li>
+    </ol>
+
+    <h2>阶段二：设计自己的飞控板（8-12周，~400元）</h2>
+    <p>用立创EDA画出完整飞控原理图+Layout，打样、焊接、烧录、跑Betaflight。</p>
+
+    <h3>PCB设计子模块</h3>
+    <table>
+      <thead><tr><th>#</th><th>模块</th><th>关键要点</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>供电链</td><td>2-6S输入→5V BEC→3.3V LDO，注意电流和散热</td></tr>
+        <tr><td>2</td><td>MCU最小系统</td><td>STM32F405RGT6+晶振+复位+BOOT</td></tr>
+        <tr><td>3</td><td>IMU</td><td>ICM-42688-P（SPI），远离发热和震动源</td></tr>
+        <tr><td>4</td><td>OSD</td><td>AT7456E，独立LDO供电</td></tr>
+        <tr><td>5</td><td>接收机</td><td>ELRS CRSF协议（UART）</td></tr>
+        <tr><td>6</td><td>电调输出</td><td>4路PWM，走线不贴电源线</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Layout注意事项</h3>
+    <ul><li>IMU远离发热元件和安装孔（震动）</li><li>电源走线避开信号线</li><li>地平面尽量完整</li><li>DRC检查通过再打样</li></ul>
+
+    <h3>调试流程</h3>
+    <ol><li>上电→测各路电压（先不焊MCU）</li><li>焊MCU→ST-Link烧录Betaflight Bootloader</li><li>Betaflight Configurator连接→传感器读数正常</li><li>装飞机实飞</li></ol>
+
+    <h2>阶段三：飞控算法 + 自主飞行（12-16周，~500元）</h2>
+    <h3>飞控算法（6周）</h3>
+    <p>从零写简化版飞控固件：Mahony/Madgwick互补滤波姿态解算→串级PID（角速度内环+角度外环）→混控输出（四轴X型混控矩阵）→移植到自己飞控板实现自稳飞行。</p>
+
+    <h3>自主飞行（6周）</h3>
+    <p>加入GPS+磁力计模块→移植INAV的INS/EKF导航代码→实现定点悬停→ESP32数传+QGroundControl地面站。</p>
+
+    <h3>ROS/仿真入门（4周）</h3>
+    <p>ROS2 Humble+Gazebo环境搭建→PX4 SITL仿真→MAVROS/MAVSDK通信→选配树莓派/RK3588机载计算机跑视觉SLAM。</p>
+
+    <h2>预算汇总</h2>
+    <table>
+      <thead><tr><th>阶段</th><th>周期</th><th>预算</th><th>核心产出</th></tr></thead>
+      <tbody>
+        <tr><td>0. 电子+51唤醒</td><td>3-4周</td><td>~100元</td><td>能焊贴片、看懂原理图</td></tr>
+        <tr><td>1. 解剖飞控+STM32</td><td>4-6周</td><td>~200元</td><td>STM32读取IMU姿态角</td></tr>
+        <tr><td>2. 设计飞控板</td><td>8-12周</td><td>~400元</td><td>自己画的飞控板跑Betaflight</td></tr>
+        <tr><td>3. 算法+自主飞行</td><td>12-16周</td><td>~500元</td><td>自主悬停+ROS仿真入门</td></tr>
+        <tr style="background:#fdfaf5;font-weight:600"><td>合计</td><td>8-14个月</td><td>~1200元</td><td>完整无人机技术栈</td></tr>
+      </tbody>
+    </table>
+
+    <h2>关键资源</h2>
+    <ul>
+      <li><strong>Betaflight</strong>: <a href="https://github.com/betaflight/betaflight">github.com/betaflight/betaflight</a></li>
+      <li><strong>INAV</strong>: <a href="https://github.com/iNavFlight/inav">github.com/iNavFlight/inav</a></li>
+      <li><strong>PX4</strong>: <a href="https://github.com/PX4/PX4-Autopilot">github.com/PX4/PX4-Autopilot</a></li>
+      <li><strong>ArduPilot</strong>: <a href="https://github.com/ArduPilot/ardupilot">github.com/ArduPilot/ardupilot</a></li>
+      <li>SpeedyBee F405原理图 / Pixhawk FMUv3参考设计 / Betaflight F4参考设计</li>
+      <li>立创EDA入门教程（B站）/ STM32 HAL库开发教程</li>
+    </ul>
+
+    <h2>当前行动（本周立即开始）</h2>
+    <ol>
+      <li>拿出普中51板子，装Keil C51，点亮LED</li>
+      <li>买焊接练习板+936焊台+万用表（~100元）</li>
+      <li>学电阻分压/电容去耦/MOSFET/LDO基本电路</li>
+      <li>按顺序跑：GPIO→中断→定时器→UART→I2C</li>
+    </ol>
+
+    <div class="article-tags">
+      <span class="post-tag tag-creative">创作分享</span>
+    </div>
+    <a href="../index.html" class="back-link">&larr; 返回首页</a>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p>2026 云朵小记 · 安静地写字</p>
+</footer>
+
+</div>
+</body>
+</html>
